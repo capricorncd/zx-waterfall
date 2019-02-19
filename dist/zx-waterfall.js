@@ -3,7 +3,7 @@
  * https://github.com/capricorncd/zx-waterfall#readme
  * Copyright © 2019-present, Capricorncd
  * Released under the ISC License
- * Released on: 2019-02-19 20:44:22
+ * Released on: 2019-02-20 00:50:51
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -120,8 +120,10 @@
 
       if (!opts.verticalGutter) {
         opts.verticalGutter = opts.gutter;
-      } // item number
+      } // setTimeout
 
+
+      this.timer = null; // item number
 
       this.count = 0;
       this.opts = opts;
@@ -224,8 +226,12 @@
     }, {
       key: "change",
       value: function change() {
+        var _this2 = this;
+
         // reset postion, when new item element append to container, or remove
-        this._setPosition();
+        this.timer = setTimeout(function () {
+          _this2._setPosition();
+        }, 0);
       }
       /**
        * reset
@@ -275,6 +281,7 @@
       key: "destroy",
       value: function destroy() {
         window.removeEventListener('resize', this._resetClone);
+        if (this.timer) clearTimeout(this.timer);
       }
     }]);
 

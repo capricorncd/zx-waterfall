@@ -1,6 +1,6 @@
 {
   "name": "zx-waterfall",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "waterfall library of javascript",
   "main": "dist/zx-waterfall.min.js",
   "scripts": {

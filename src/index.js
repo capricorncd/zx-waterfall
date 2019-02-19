@@ -47,6 +47,8 @@ class ZxWaterfall {
     if (!opts.verticalGutter) {
       opts.verticalGutter = opts.gutter
     }
+    // setTimeout
+    this.timer = null
     // item number
     this.count = 0
     this.opts = opts
@@ -128,7 +130,9 @@ class ZxWaterfall {
    */
   change () {
     // reset postion, when new item element append to container, or remove
-    this._setPosition()
+    this.timer = setTimeout(() => {
+      this._setPosition()
+    }, 0)
   }
 
   /**
@@ -169,6 +173,7 @@ class ZxWaterfall {
    */
   destroy () {
     window.removeEventListener('resize', this._resetClone)
+    if (this.timer) clearTimeout(this.timer)
   }
 }
 

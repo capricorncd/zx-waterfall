@@ -81,7 +81,7 @@
     }
 
     @keyframes rotate {
-      form: {
+      form {
       transform: rotate(0);
       }
       to {
@@ -160,9 +160,9 @@
             vm.waterfall.loadMedia(medias).then(function () {
               // 通知瀑布流，更新视图
               vm.waterfall.change();
+              vm.loadState = false;
+              vm.isNotMore = false;
             })
-            vm.loadState = false;
-            vm.isNotMore = false;
           } else {
             vm.isNotMore = true;
           }
