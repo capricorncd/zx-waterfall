@@ -1,12 +1,8 @@
-# zx-waterfall
+# 瀑布流
 
-> waterfall
+## 使用说明
 
-[中文文档](./docs/cn.md)
-
-## Getting Started
-
-Install `zx-waterfall` using `npm`
+使用`npm`安装`zx-waterfall`
 
 ```
 npm i --save zx-waterfall
@@ -30,7 +26,7 @@ const waterfall = new ZxWaterfall({
 // reset
 waterfall.reset()
 // loaMedias
-waterfall.loadMedia(['http://xx.com/aaa.jpg', '...']).then(_ => {
+waterfall.loadMedia(['http://xx.com/aaa.jpg']).then(_ => {
   // change
   waterfall.change()
 })
@@ -42,60 +38,60 @@ browser
 <script src="path/zx-waterfall.min.js"></script>
 ```
 
-demo
+## demo
 
 https://capricorncd.github.io/zx-waterfall/dist/index.html
 
-## Notice
+## 注意
 
 * `container` 's style must be `style.position=relative|absolute|fixed`
 
-## options
+## 参数options
 
 * container: `HTMLElement`
 
-  HTMLElement, waterfall items's outer container.
+  瀑布流外容器.
 
 * containerWidth: `Number`
 
-  container's width, use by container are hidden when initialize.
+  瀑布流宽度，如果初始化时外容器未隐藏状态则需使用该参数.
 
-  default get container offsetWidth when it's visible.
+  默认获取外容器宽度.
 
 
 * itemSelector: `String`
 
-  children item selector, eg. '.item-container'.
+  子元素选择器，比如 样式名'.item-container'.
 
 * gutter: `Number`
 
-  item's spacing, unit px. default `20`.
+  元素间的间隔.
 
 * verticalGutter: `Number`
 
-  item's vertical spacing, default use gutter's value.
+  元素间垂直方向间隔，默认使用gutter值.
 
 * itemWidth: `Number`
 
-  item's width, default `300`.
+  元素宽度, 默认 `300`, 会根据容器宽度自动调整.
 
 * forceItemWidth: `Boolean`
 
-  force item width, default `false`.
+  强制元素宽度，即使用itemWidth作为宽度值，默认 `false`.
 
 * align: `String`, Optional value `left|center|right`
 
-  Horizontal align when forceItemWidth is true, default `center`.
+  强制宽度时，元素显示靠边位置，默认 `center`.
 
-## methods
+## 方法
 
 * reset()
 
-  reset initialize
+  重置瀑布流初始值
 
 * loadMeida(array)
 
-  preload meidas(image) form list data.
+  预加载列表数据中的image媒体元素.
 
   array: `['http://a.com/1.jpg', 'http://a.com/2.jpg']`
 
@@ -103,8 +99,4 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 
 * change()
 
-  List data has been changed to update the position of waterfall elements.
-
-## Copyright and license
-
-Code and documentation copyright 2019. capricorncd. Code released under the ISC License.
+  列表数据改变后后，通知瀑布流更新元素位置.
