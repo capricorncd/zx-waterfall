@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": false,
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": ["@babel/plugin-external-helpers"]
+}

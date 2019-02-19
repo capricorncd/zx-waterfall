@@ -1,0 +1,38 @@
+{
+  "name": "zx-waterfall",
+  "version": "0.0.1",
+  "description": "waterfall library of javascript",
+  "main": "dist/zx-waterfall.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "rollup -c build/rollup.config.js -w",
+    "build": "rollup -c build/rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/capricorncd/zx-waterfall.git"
+  },
+  "keywords": [
+    "waterfall",
+    "zx-waterfall",
+    "javascript"
+  ],
+  "author": "Capricorncd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/capricorncd/zx-waterfall/issues"
+  },
+  "homepage": "https://github.com/capricorncd/zx-waterfall#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-external-helpers": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "eslint": "^5.14.1",
+    "rollup": "^1.2.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-eslint": "^5.0.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-uglify": "^6.0.2"
+  }
+}
