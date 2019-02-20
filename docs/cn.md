@@ -100,3 +100,7 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 * change()
 
   列表数据改变后后，通知瀑布流更新元素位置.
+  
+* destroy
+
+  移除window resize事件监听, 清除clearTimeout.
