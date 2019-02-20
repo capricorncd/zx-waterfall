@@ -104,6 +104,10 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 * change()
 
   List data has been changed to update the position of waterfall elements.
+  
+* destroy
+
+  removeEventListener window resize, clearTimeout
 
 ## Copyright and license
 
