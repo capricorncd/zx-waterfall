@@ -1,9 +1,9 @@
 /*!
- * zx-waterfall v0.0.1
+ * zx-waterfall v0.1.0
  * https://github.com/capricorncd/zx-waterfall#readme
  * Copyright © 2019-present, Capricorncd
  * Released under the ISC License
- * Released on: 2019-02-20 00:50:51
+ * Released on: 2019-02-26 19:50:59
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -89,7 +89,9 @@
     // force item width
     forceItemWidth: false,
     // Horizontal align when forceItemWidth is true
-    align: 'center'
+    align: 'center',
+    // auto setting container height
+    computeContainerHeight: false
     /**
      * ZxWaterfall
      */
@@ -210,7 +212,8 @@
 
           var itemHeight = $item.offsetHeight;
           _this.columns[index] = min + itemHeight + opts.verticalGutter; // update container new min height style
-          // opts.container.style.minHeight = Math.max.apply(null, this.columns) + opts.verticalGutter + 'px'
+
+          if (opts.computeContainerHeight) opts.container.style.minHeight = Math.max.apply(null, _this.columns) + opts.verticalGutter + 'px';
         };
 
         for (i = 0; i < len; i++) {
@@ -220,12 +223,12 @@
         }
       }
       /**
-       * container's items number change
+       * Called after the container's items has changed
        */
 
     }, {
-      key: "change",
-      value: function change() {
+      key: "update",
+      value: function update() {
         var _this2 = this;
 
         // reset postion, when new item element append to container, or remove

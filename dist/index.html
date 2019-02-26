@@ -163,7 +163,7 @@
             // 预加载图片
             vm.waterfall.loadMedia(medias).then(function () {
               // 通知瀑布流，更新视图
-              vm.waterfall.change();
+              vm.waterfall.update();
               vm.loadState = false;
               vm.isNotMore = false;
             })

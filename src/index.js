@@ -22,7 +22,9 @@ const DEF_OPTIONS = {
   // force item width
   forceItemWidth: false,
   // Horizontal align when forceItemWidth is true
-  align: 'center'
+  align: 'center',
+  // auto setting container height
+  computeContainerHeight: false
 }
 
 /**
@@ -121,14 +123,14 @@ class ZxWaterfall {
       let itemHeight = $item.offsetHeight
       this.columns[index] = min + itemHeight + opts.verticalGutter
       // update container new min height style
-      // opts.container.style.minHeight = Math.max.apply(null, this.columns) + opts.verticalGutter + 'px'
+      if (opts.computeContainerHeight) opts.container.style.minHeight = Math.max.apply(null, this.columns) + opts.verticalGutter + 'px'
     }
   }
 
   /**
-   * container's items number change
+   * Called after the container's items has changed
    */
-  change () {
+  update () {
     // reset postion, when new item element append to container, or remove
     this.timer = setTimeout(() => {
       this._setPosition()

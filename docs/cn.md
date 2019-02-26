@@ -58,6 +58,10 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 
   默认获取外容器宽度.
 
+* computeContainerHeight: `Boolean`
+
+  调用update()方法后，自动设置容器高度，默认`false`.
+
 
 * itemSelector: `String`
 
@@ -97,10 +101,10 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 
   @return promise
 
-* change()
+* update()
 
   列表数据改变后后，通知瀑布流更新元素位置.
-  
+
 * destroy
 
   移除window resize事件监听, 清除clearTimeout.

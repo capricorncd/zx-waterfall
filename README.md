@@ -31,8 +31,8 @@ const waterfall = new ZxWaterfall({
 waterfall.reset()
 // loaMedias
 waterfall.loadMedia(['http://xx.com/aaa.jpg', '...']).then(_ => {
-  // change
-  waterfall.change()
+  // update
+  waterfall.update()
 })
 ```
 
@@ -52,9 +52,15 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 
 ## options
 
+* align: `String`, Optional value `left|center|right`
+
+  Horizontal align when forceItemWidth is true, default `center`.
+
+
 * container: `HTMLElement`
 
   HTMLElement, waterfall items's outer container.
+
 
 * containerWidth: `Number`
 
@@ -63,29 +69,34 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
   default get container offsetWidth when it's visible.
 
 
-* itemSelector: `String`
+* computeContainerHeight: `Boolean`
 
-  children item selector, eg. '.item-container'.
+  Compute container height and setting when updated. default `false`.
+
 
 * gutter: `Number`
 
   item's spacing, unit px. default `20`.
 
-* verticalGutter: `Number`
-
-  item's vertical spacing, default use gutter's value.
 
 * itemWidth: `Number`
 
   item's width, default `300`.
 
+
+* itemSelector: `String`
+
+  children item selector, eg. '.item-container'.
+
+
 * forceItemWidth: `Boolean`
 
   force item width, default `false`.
 
-* align: `String`, Optional value `left|center|right`
 
-  Horizontal align when forceItemWidth is true, default `center`.
+* verticalGutter: `Number`
+
+  item's vertical spacing, default use gutter's value.
 
 ## methods
 
@@ -101,13 +112,13 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 
   @return promise
 
-* change()
+* update()
 
   List data has been changed to update the position of waterfall elements.
-  
+
 * destroy
 
-  removeEventListener window resize, clearTimeout
+  removeEventListener window resize, clearTimeout.
 
 ## Copyright and license
 
