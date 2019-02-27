@@ -54,7 +54,7 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 
 * containerWidth: `Number`
 
-  瀑布流宽度，如果初始化时外容器未隐藏状态则需使用该参数.
+  瀑布流宽度，如果初始化时外容器为隐藏状态则需使用该参数.
 
   默认获取外容器宽度.
 
