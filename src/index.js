@@ -103,8 +103,6 @@ class ZxWaterfall {
     let $childs = slice(opts.container.querySelectorAll(opts.itemSelector), this.count)
     // console.log(this.count, $childs)
     let len = $childs.length
-    // reset this.count value
-    this.count += len
     // handle new $item
     let i, $item
     for (i = 0; i < len; i++) {
@@ -125,6 +123,8 @@ class ZxWaterfall {
       // update container new min height style
       if (opts.computeContainerHeight) opts.container.style.minHeight = Math.max.apply(null, this.columns) + opts.verticalGutter + 'px'
     }
+    // reset this.count value
+    this.count += len
   }
 
   /**
@@ -143,7 +143,7 @@ class ZxWaterfall {
   reset () {
     this.count = 0
     this._init()
-    this._setPosition()
+    // this._setPosition()
   }
 
   /**
