@@ -1,9 +1,9 @@
 /*!
- * zx-waterfall v0.1.0
+ * zx-waterfall v0.1.1
  * https://github.com/capricorncd/zx-waterfall#readme
  * Copyright © 2019-present, Capricorncd
  * Released under the ISC License
- * Released on: 2019-02-26 19:50:59
+ * Released on: 2019-03-04 23:45:30
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -133,8 +133,8 @@
       this._init(); // clone this.reset
 
 
-      this._resetClone = this.reset.bind(this);
-      window.addEventListener('resize', this._resetClone);
+      this._resizeClone = this._handleResize.bind(this);
+      window.addEventListener('resize', this._resizeClone);
     }
     /**
      * initialization
@@ -187,9 +187,7 @@
 
         var $childs = slice(opts.container.querySelectorAll(opts.itemSelector), this.count); // console.log(this.count, $childs)
 
-        var len = $childs.length; // reset this.count value
-
-        this.count += len; // handle new $item
+        var len = $childs.length; // handle new $item
 
         var i, $item;
 
@@ -220,7 +218,10 @@
           var _ret = _loop();
 
           if (_ret === "continue") continue;
-        }
+        } // reset this.count value
+
+
+        this.count += len;
       }
       /**
        * Called after the container's items has changed
@@ -246,6 +247,15 @@
         this.count = 0;
 
         this._init();
+      }
+      /**
+       * 处理window.onresize
+       */
+
+    }, {
+      key: "_handleResize",
+      value: function _handleResize() {
+        this.reset();
 
         this._setPosition();
       }
@@ -283,7 +293,7 @@
     }, {
       key: "destroy",
       value: function destroy() {
-        window.removeEventListener('resize', this._resetClone);
+        window.removeEventListener('resize', this._resizeClone);
         if (this.timer) clearTimeout(this.timer);
       }
     }]);
