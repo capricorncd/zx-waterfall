@@ -56,8 +56,8 @@ class ZxWaterfall {
     this.opts = opts
     this._init()
     // clone this.reset
-    this._resetClone = this.reset.bind(this)
-    window.addEventListener('resize', this._resetClone)
+    this._resizeClone = this._handleResize.bind(this)
+    window.addEventListener('resize', this._resizeClone)
   }
 
   /**
@@ -143,7 +143,14 @@ class ZxWaterfall {
   reset () {
     this.count = 0
     this._init()
-    // this._setPosition()
+  }
+  
+  /**
+   * 处理window.onresize
+   */
+  _handleResize () {
+    this.reset()
+    this._setPosition()
   }
 
   /**
@@ -174,7 +181,7 @@ class ZxWaterfall {
    * removeEventListener window resize
    */
   destroy () {
-    window.removeEventListener('resize', this._resetClone)
+    window.removeEventListener('resize', this._resizeClone)
     if (this.timer) clearTimeout(this.timer)
   }
 }
