@@ -93,7 +93,7 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 
   重置瀑布流初始值
 
-* loadMeida(array)
+* loadMedia(array)
 
   预加载列表数据中的image媒体元素.
 
