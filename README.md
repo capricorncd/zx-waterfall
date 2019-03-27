@@ -104,7 +104,7 @@ https://capricorncd.github.io/zx-waterfall/dist/index.html
 
   reset initialize
 
-* loadMeida(array)
+* loadMedia(array)
 
   preload meidas(image) form list data.
 
