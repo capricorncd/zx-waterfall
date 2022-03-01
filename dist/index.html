@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,9 +10,11 @@
       margin: 0;
       padding: 0;
     }
+
     body {
       padding-top: 60px;
     }
+
     h2 {
       position: fixed;
       z-index: 10;
@@ -24,11 +27,13 @@
       color: #ccc;
       text-align: center;
     }
+
     .container {
       position: relative;
       overflow-x: hidden;
       overflow-y: scroll;
     }
+
     .container .item {
       padding: 20px;
       box-sizing: border-box;
@@ -36,19 +41,23 @@
       border-radius: 4px;
       overflow: hidden;
     }
+
     .container .item dt {
       padding-bottom: 10px;
     }
+
     .container .item dt i {
       padding-right: 10px;
       font-weight: bold;
       color: #c00;
     }
+
     .container .item img {
       width: 100%;
       height: auto;
       border-radius: 2px;
     }
+
     .loading {
       position: fixed;
       z-index: 9;
@@ -66,6 +75,7 @@
       justify-content: center;
       align-items: center;
     }
+
     .loading i {
       position: relative;
       display: inline-block;
@@ -76,129 +86,129 @@
       border-radius: 50%;
       animation: rotate 2s linear infinite;
     }
+
     .loading p {
       margin-top: 10px;
     }
 
     @keyframes rotate {
       form {
-      transform: rotate(0);
+        transform: rotate(0);
       }
+
       to {
         transform: rotate(360deg);
       }
     }
   </style>
 </head>
+
 <body>
-<div id="app">
-  <h2>{{ title }}</h2>
-  <div class="container" ref="container">
-    <dl
-      class="item"
-      v-for="(item, index) in list"
-      :key="index"
-      style="display: none;">
-      <dt><i>#{{ index + 1 }}</i>{{ item.content }}</dt>
-      <dd>
-        <img v-for="(media, i) in item.medias" :key="i" :src="media.thumb" alt="">
-      </dd>
-    </dl>
+  <div id="app">
+    <h2>{{ title }}</h2>
+    <div class="container" ref="container">
+      <dl class="item" v-for="(item, index) in list" :key="index" style="display: none;">
+        <dt><i>#{{ index + 1 }}</i>{{ item.content }}</dt>
+        <dd>
+          <img v-for="(media, i) in item.medias" :key="i" :src="media.thumb" alt="">
+        </dd>
+      </dl>
+    </div>
+    <div v-show="isNotMore" style="text-align: center;color: red;">没有更多数据了</div>
+    <div class="loading" v-show="loadState && !isNotMore">
+      <i></i>
+      <p>loading ...</p>
+    </div>
   </div>
-  <div v-show="isNotMore" style="text-align: center;color: red;">没有更多数据了</div>
-  <div class="loading" v-show="loadState && !isNotMore">
-    <i></i>
-    <p>loading ...</p>
-  </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.42/polyfill.min.js"></script>
-<!-- 生产环境版本，优化了尺寸和速度 -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="./zx-waterfall.js"></script>
-<script src="./mock-json.js"></script>
-<script>
-  // 模拟数据
-  var mockList = JSON.parse(mockJsonStr);
-  var vm = new Vue({
-    beforeDestroy: function () {
-      this.waterfall.destroy();
-      this.$container.removeEventListener('scroll', this.handleScroll);
-    },
-    data: {
-      title: 'zx-waterfall demo',
-      // 列表数据
-      list: [],
-      // 瀑布流实例
-      waterfall: null,
-      // 数据请求页数
-      page: 1,
-      // 每页数据条数
-      pageSize: 10,
-      // 容器元素
-      $container: null,
-      // 数据请求/加载状态
-      loadState: false,
-      // 没有更多数据了
-      isNotMore: false
-    },
-    el: '#app',
-    methods: {
-      getList: function () {
-        // 判断数据是否已加载，或已无更多数据
-        if (this.loadState) return;
-        this.loadState = true;
-        // 模拟延时请求
-        var timer = setTimeout(function () {
-          var list = mockList.slice((vm.page - 1) * vm.pageSize, vm.page * vm.pageSize);
-          if (list.length) {
-            vm.list = vm.list.concat(list);
-            vm.page++;
-            // 获取媒体（图片）元素
-            var medias = []
-            list.forEach(function (item) {
-              item.medias.forEach(function (val) {
-                medias.push(val.thumb);
-              })
-            })
-            // 预加载图片
-            vm.waterfall.loadMedia(medias).then(function () {
-              // 通知瀑布流，更新视图
-              vm.waterfall.update();
-              vm.loadState = false;
-              vm.isNotMore = false;
-            })
-          } else {
-            vm.isNotMore = true;
-          }
-          clearTimeout(timer);
-        }, 300)
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.42/polyfill.min.js"></script>
+  <!-- 生产环境版本，优化了尺寸和速度 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="./zx-waterfall.js"></script>
+  <script src="./mock-json.js"></script>
+  <script>
+    // 模拟数据
+    var mockList = JSON.parse(mockJsonStr);
+    var vm = new Vue({
+      beforeDestroy: function () {
+        this.waterfall.destroy();
+        this.$container.removeEventListener('scroll', this.handleScroll);
       },
-      handleScroll: function () {
-        var $el = this.$container;
-        var scrollTop = $el.scrollTop
-        var scrollHeight = $el.scrollHeight
-        if (scrollHeight - scrollTop - $el.offsetHeight < 100) {
-          vm.getList()
+      data: {
+        title: 'zx-waterfall demo',
+        // 列表数据
+        list: [],
+        // 瀑布流实例
+        waterfall: null,
+        // 数据请求页数
+        page: 1,
+        // 每页数据条数
+        pageSize: 10,
+        // 容器元素
+        $container: null,
+        // 数据请求/加载状态
+        loadState: false,
+        // 没有更多数据了
+        isNotMore: false
+      },
+      el: '#app',
+      methods: {
+        getList: function () {
+          // 判断数据是否已加载，或已无更多数据
+          if (this.loadState) return;
+          this.loadState = true;
+          // 模拟延时请求
+          var timer = setTimeout(function () {
+            var list = mockList.slice((vm.page - 1) * vm.pageSize, vm.page * vm.pageSize);
+            if (list.length) {
+              vm.list = vm.list.concat(list);
+              vm.page++;
+              // 获取媒体（图片）元素
+              var medias = []
+              list.forEach(function (item) {
+                item.medias.forEach(function (val) {
+                  medias.push(val.thumb);
+                })
+              })
+              // 预加载图片
+              vm.waterfall.loadMedia(medias).then(function () {
+                // 通知瀑布流，更新视图
+                vm.waterfall.update();
+                vm.loadState = false;
+                vm.isNotMore = false;
+              })
+            } else {
+              vm.isNotMore = true;
+            }
+            clearTimeout(timer);
+          }, 300)
+        },
+        handleScroll: function () {
+          var $el = this.$container;
+          var scrollTop = $el.scrollTop
+          var scrollHeight = $el.scrollHeight
+          if (scrollHeight - scrollTop - $el.offsetHeight < 100) {
+            vm.getList()
+          }
         }
+      },
+      mounted: function () {
+        // 获取容器DOM元素
+        this.$container = this.$refs.container;
+        // 设置容器高度, 窗口高度 - 头部header高度 - 底部预留20像素距离
+        this.$container.style.height = window.innerHeight - 60 - 20 + 'px';
+        // 实例化瀑布流
+        this.waterfall = new ZxWaterfall({
+          container: this.$container,
+          itemSelector: '.item'
+        })
+        // console.log(this.waterfall);
+        // 获取数据
+        this.getList();
+        // 添加滚动事件监听
+        this.$container.addEventListener('scroll', this.handleScroll);
       }
-    },
-    mounted: function () {
-      // 获取容器DOM元素
-      this.$container = this.$refs.container;
-      // 设置容器高度, 窗口高度 - 头部header高度 - 底部预留20像素距离
-      this.$container.style.height = window.innerHeight - 60 - 20 + 'px';
-      // 实例化瀑布流
-      this.waterfall = new ZxWaterfall({
-        container: this.$container,
-        itemSelector: '.item'
-      })
-      // console.log(this.waterfall);
-      // 获取数据
-      this.getList();
-      // 添加滚动事件监听
-      this.$container.addEventListener('scroll', this.handleScroll);
-    }
-  })
-</script>
+    })
+  </script>
 </body>
+
 </html>
